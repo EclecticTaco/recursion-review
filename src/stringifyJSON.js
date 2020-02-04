@@ -42,24 +42,23 @@ var stringifyJSON = function(obj) {
     return `[${temp}]`;
   } else {
 
-    var newStr = '{'
+    var newStr = '{';
     // create an array of keys
-    var objKeys = Object.keys(obj)
-    if ( (objKeys.length === 0) || ('function' in obj) || ('undefined' in obj) ){
-      return '{}'
+    var objKeys = Object.keys(obj);
+    if ((objKeys.length === 0) || ('function' in obj) || ('undefined' in obj)) {
+      return '{}';
     }
     // create an array of values
-    var objValues = Object.values(obj)
+    var objValues = Object.values(obj);
     // loop over the keys array
     for (var i = 0; i < objKeys.length; i += 1) {
-      newStr += stringifyJSON(objKeys[i]) + ':' + stringifyJSON(objValues[i]) + ','
+      newStr += stringifyJSON(objKeys[i]) + ':' + stringifyJSON(objValues[i]) + ',';
     }
-    return newStr.slice(0, newStr.length - 1) + '}'
+    return newStr.slice(0, newStr.length - 1) + '}';
     // concat keys: stringifyJSON(values)
   }
 
 };
-console.log(stringifyJSON({'a': {'b': 'c'}}))
 // var stringifiableObjects = [
 //   9,
 //   null,
