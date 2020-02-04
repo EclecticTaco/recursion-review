@@ -13,6 +13,7 @@ var stringifyJSON = function(obj) {
   // if obj is array, passback through stringifyJSON
 
   var result = '';
+  
   if (Array.isArray(obj)) {
     var isArray = true;
   } else if (typeof obj === 'object') {
@@ -25,22 +26,24 @@ var stringifyJSON = function(obj) {
     return result = `"${obj}"`;
   }
   if (isArray) {
-    obj.forEach(function(element) {
-      return result += stringifyJSON(element);
+    var finalArr = obj.map(function(element) {
+      return stringifyJSON(element);
     });
-    console.log(result)
+    // console.log(result);
   }
+
   if (isArray) {
     if (obj.length === 0) {
       return '[]';
     }
-    var temp = result.split(' ');
+    // console.log(result);
+    var temp = result.split('');
     //console.log(temp);
     return `[${temp}]`;
   }
 
 };
-
+console.log(stringifyJSON([8, 'hi']))
 // var stringifiableObjects = [
 //   9,
 //   null,
