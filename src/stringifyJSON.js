@@ -13,7 +13,7 @@ var stringifyJSON = function(obj) {
   // if obj is array, passback through stringifyJSON
 
   var result = '';
-  
+
   if (Array.isArray(obj)) {
     var isArray = true;
   } else if (typeof obj === 'object') {
@@ -37,13 +37,29 @@ var stringifyJSON = function(obj) {
       return '[]';
     }
     // console.log(result);
-    var temp = result.split('');
+    var temp = finalArr.join(',');
     //console.log(temp);
     return `[${temp}]`;
+  } else {
+
+    var newStr = '{'
+    // create an array of keys
+    var objKeys = Object.keys(obj)
+    if ( (objKeys.length === 0) || ('function' in obj) || ('undefined' in obj) ){
+      return '{}'
+    }
+    // create an array of values
+    var objValues = Object.values(obj)
+    // loop over the keys array
+    for (var i = 0; i < objKeys.length; i += 1) {
+      newStr += stringifyJSON(objKeys[i]) + ':' + stringifyJSON(objValues[i]) + ','
+    }
+    return newStr.slice(0, newStr.length - 1) + '}'
+    // concat keys: stringifyJSON(values)
   }
 
 };
-console.log(stringifyJSON([8, 'hi']))
+console.log(stringifyJSON({'a': {'b': 'c'}}))
 // var stringifiableObjects = [
 //   9,
 //   null,
